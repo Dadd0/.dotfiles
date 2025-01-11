@@ -49,11 +49,17 @@ vim.keymap.set('n', ']d', vim.diagnostic.goto_next, { desc = "Go to next diagnos
 vim.keymap.set('n', '<leader>d', vim.diagnostic.open_float, { desc = "Open floating diagnostic message" })
 vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = "Open diagnostics list" })
 
--- Run python file in a horizontal pane
-vim.keymap.set('n', '<C-,>', function()
-    vim.cmd('split')          -- Split the window horizontally
-    vim.cmd('term python3 %') -- Open a terminal and run the current file with Python
+-- Execute depending on filetype 
+vim.keymap.set('n', '<leader>r', function()
+    --local filename = vim.fn.expand("%")
+    --local basename = vim.fn.expand("%:r")
+    local filetype = vim.bo.filetype
+
+    if filetype == "python" then
+        print("Python file")
+        vim.cmd(":term python3 %")
+    else
+        print("No interpreter or compiler defined for filetype: '"..filetype.."'")
+    end
 end)
 
---Open help file vertically
-vim.keymap.set('c', 'H', 'vert h', opts)
