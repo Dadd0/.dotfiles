@@ -37,5 +37,7 @@ require "plugins.debug",
 require "plugins.bufferline",
 require "plugins.surround",
 require "plugins.codecompanion",
+require "plugins.alpha",
+require "plugins.todo",
 })
 
