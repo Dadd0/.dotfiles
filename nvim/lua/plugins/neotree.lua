@@ -185,7 +185,6 @@ return {
             ["A"] = "add_directory", -- also accepts the optional config.show_path option like "add". this also supports BASH style brace expansion.
             ["d"] = "delete",
             ["r"] = "rename",
-            ["b"] = "rename_basename",
             ["y"] = "copy_to_clipboard",
             ["x"] = "cut_to_clipboard",
             ["p"] = "paste_from_clipboard",
@@ -290,6 +289,7 @@ return {
           show_unloaded = true,
           window = {
             mappings = {
+              ["b"] = "open",
               ["bd"] = "buffer_delete",
               ["<bs>"] = "navigate_up",
               ["."] = "set_root",

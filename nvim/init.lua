@@ -23,9 +23,10 @@ require "plugins.autoformatting",
 require "plugins.gitsigns",
 require "plugins.indent-blankline",
 require "plugins.misc",
-require "plugins.avante",
 require "plugins.virtualenvs",
 require "plugins.debug",
 require "plugins.bufferline",
+require "plugins.surround",
+require "plugins.codecompanion",
 })
 

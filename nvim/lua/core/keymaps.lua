@@ -54,3 +54,6 @@ vim.keymap.set('n', '<C-,>', function()
     vim.cmd('split')          -- Split the window horizontally
     vim.cmd('term python3 %') -- Open a terminal and run the current file with Python
 end)
+
+--Open help file vertically
+vim.keymap.set('c', 'H', 'vert h', opts)
