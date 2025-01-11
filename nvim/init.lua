@@ -3,6 +3,13 @@ require "core.keymaps"
 
 vim.g.python3_host_prog = vim.fn.expand('~/.virtualenvs/neovim-env/bin/python')
 
+-- WSL urls and links router
+if vim.fn.has("wsl") == 1 then
+  vim.g.netrw_browsex_viewer = "wslview"
+else
+
+end
+
 local lazypath = vim.fn.stdpath 'data' .. '/lazy/lazy.nvim'
 if not (vim.uv or vim.loop).fs_stat(lazypath) then
   local lazyrepo = 'https://github.com/folke/lazy.nvim.git'
