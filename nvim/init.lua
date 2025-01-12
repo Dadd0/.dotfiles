@@ -1,5 +1,6 @@
 require "core.options"
 require "core.keymaps"
+require "core.snippets"
 
 vim.g.python3_host_prog = vim.fn.expand('~/.virtualenvs/neovim-env/bin/python')
 
@@ -39,5 +40,6 @@ require "plugins.surround",
 require "plugins.codecompanion",
 require "plugins.alpha",
 require "plugins.todo",
+require "plugins.markdown",
 })
 

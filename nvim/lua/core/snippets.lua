@@ -3,6 +3,6 @@ vim.cmd [[
   augroup kitty_mp
   autocmd!
   au VimLeave * :silent !kitty @ set-spacing padding=default margin=default
-  au VimEnter * :silent !kitty @ set-spacing padding=0 margin=0 3 0 3
+  au VimEnter * :silent !kitty @ set-spacing padding=0 margin=0 0 0 0
   augroup END
 ]]
