@@ -53,11 +53,19 @@ vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = "Open diagn
 vim.keymap.set('n', '<leader>r', function()
     --local filename = vim.fn.expand("%")
     --local basename = vim.fn.expand("%:r")
+    local filepath = vim.fn.expand("%:p")
+    local filedir = vim.fn.expand("%:p:h")
     local filetype = vim.bo.filetype
 
     if filetype == "python" then
         print("Python file")
         vim.cmd(":term python3 %")
+    elseif filetype == "go" then
+        print("Go file")
+        vim.o.makeprg = string.format("make TARGET=%s BINARY_DIR=%s", filepath, filedir)
+        vim.cmd("make")
+        local binary_name = vim.fn.expand("%:t:r")
+        vim.cmd(string.format(":term %s/%s", filedir, binary_name))
     else
         print("No interpreter or compiler defined for filetype: '"..filetype.."'")
     end
