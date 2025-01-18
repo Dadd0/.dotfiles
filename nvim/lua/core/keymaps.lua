@@ -58,8 +58,8 @@ vim.keymap.set('n', '<leader>r', function()
     local filetype = vim.bo.filetype
 
     if filetype == "python" then
-        print("Python file")
-        vim.cmd(":term python3 %")
+        local tmux_cmd = string.format("tmux new-window -n python_run 'cd %s && python3 %s; read -p \"Press Enter to close...\"'", filedir, filepath)
+        vim.fn.system(tmux_cmd)
     elseif filetype == "go" then
         print("Go file")
         vim.o.makeprg = string.format("make TARGET=%s BINARY_DIR=%s", filepath, filedir)
