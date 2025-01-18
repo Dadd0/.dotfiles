@@ -6,7 +6,7 @@ vim.keymap.set({ 'n', 'v' }, '<Space>', '<Nop>', { silent = true })
 local opts = { noremap = true, silent = true }
 
 vim.keymap.set('n', 'x', '"_x', opts)
-vim.keymap.set('i', '<C-BS>', '<C-w>', opts)
+vim.keymap.set('i', '<C-h>', '<C-w>', opts)
 vim.keymap.set('n', '<Esc>', ':nohl <CR>', opts) -- Esc removes highlights 
 
 -- Keep the cursor in the center of the screen when cycling occurrences searched
