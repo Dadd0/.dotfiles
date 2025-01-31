@@ -39,9 +39,7 @@ return { -- Autocompletion
     -- See `:help cmp`
     local cmp = require 'cmp'
     local luasnip = require 'luasnip'
-    luasnip.config.setup {
-      enable_autosnippets = true
-    }
+    luasnip.config.setup {}
 
     local kind_icons = {
       Text = '󰉿',
@@ -132,7 +130,7 @@ return { -- Autocompletion
         -- Select next/previous item with Tab / Shift + Tab
         ['<Tab>'] = cmp.mapping(function(fallback)
           if cmp.visible() then
-            cmp.select_next_item()
+            cmp.select_next_item({ behavior = cmp.SelectBehavior.Insert })
           elseif luasnip.expand_or_locally_jumpable() then
             luasnip.expand_or_jump()
           else

@@ -61,11 +61,8 @@ vim.keymap.set('n', '<leader>r', function()
         local tmux_cmd = string.format("tmux new-window -n python_run 'cd %s && python3 %s; read -p \"Press Enter to close...\"'", filedir, filepath)
         vim.fn.system(tmux_cmd)
     elseif filetype == "go" then
-        print("Go file")
-        vim.o.makeprg = string.format("make TARGET=%s BINARY_DIR=%s", filepath, filedir)
-        vim.cmd("make")
-        local binary_name = vim.fn.expand("%:t:r")
-        vim.cmd(string.format(":term %s/%s", filedir, binary_name))
+        local tmux_cmd = string.format("tmux new-window -n go_run 'cd %s && go run %s; read -p \"Press Enter to close...\"'", filedir, filepath)
+        vim.fn.system(tmux_cmd)
     else
         print("No interpreter or compiler defined for filetype: '"..filetype.."'")
     end
