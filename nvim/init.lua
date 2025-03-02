@@ -42,5 +42,6 @@ require "plugins.alpha",
 require "plugins.todo",
 require "plugins.markdown",
 require "plugins.typst",
+require "plugins.lazygit",
 })
 
