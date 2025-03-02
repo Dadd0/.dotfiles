@@ -4,3 +4,6 @@
 - **python virtualenvs**
 - **fdfind** with `alias fd=fdfind` (source .bashrc)
 - **unzip** with `sudo apt install unzip`
+
+# Optional Dependencies
+- `jesseduffield/lazygit`
