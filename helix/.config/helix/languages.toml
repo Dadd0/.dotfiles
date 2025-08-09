@@ -31,19 +31,10 @@ name = "python"
 language-servers = [ "ruff", "pylsp", "scls" ]
 
 [[language]]
-name = "css"
-language-servers = [ "vscode-css-language-server" ]
-
-[[language]]
 name = "c"
 language-servers = [ "clangd" ]
 
-
-[[language]]
-name = "typst"
-language-servers = ["tinymist"]
-
-
+# etc..
 
 # introduce a new language to enable completion on any doc by forcing set language with :set-language stub
 [[language]]

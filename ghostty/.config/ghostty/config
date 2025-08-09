@@ -1,0 +1,70 @@
+# This is the configuration file for Ghostty.
+#
+theme = GruvboxDarkHard
+
+mouse-hide-while-typing = true
+mouse-scroll-multiplier = 2
+
+window-colorspace = "display-p3"
+background = #000000
+
+# TABS
+keybind = ctrl+space>c=new_tab
+keybind = ctrl+space>x=close_surface
+keybind = ctrl+space>1=goto_tab:1
+keybind = ctrl+space>2=goto_tab:2
+keybind = ctrl+space>3=goto_tab:3
+keybind = ctrl+space>4=goto_tab:4
+keybind = ctrl+space>5=goto_tab:5
+
+# SPLITS
+keybind = ctrl+space>\=new_split:right
+keybind = ctrl+space>-=new_split:down
+keybind = ctrl+space>e=equalize_splits
+
+# TRANSPARENCY
+background-opacity = 0.8
+background-blur-radius = 20
+
+# CURSOR
+cursor-style = block
+cursor-style-blink = false
+
+# OTHER
+# window-decoration = false
+font-feature = -calt
+
+
+
+# Run `ghostty +show-config --default --docs` to view a list of
+# all available config options and their default values.
+#
+# Additionally, each config option is also explained in detail
+# on Ghostty's website, at https://ghostty.org/docs/config.
+
+# Config syntax crash course
+# =========================
+# # The config file consists of simple key-value pairs,
+# # separated by equals signs.
+# font-family = Iosevka
+# window-padding-x = 2
+#
+# # Spacing around the equals sign does not matter.
+# # All of these are identical:
+# key=value
+# key= value
+# key =value
+# key = value
+#
+# # Any line beginning with a # is a comment. It's not possible to put
+# # a comment after a config option, since it would be interpreted as a
+# # part of the value. For example, this will have a value of "#123abc":
+#
+# # Empty values are used to reset config keys to default.
+# key =
+#
+# # Some config options have unique syntaxes for their value,
+# # which is explained in the docs for that config option.
+# # Just for example:
+# resize-overlay-duration = 4s 200ms
+
