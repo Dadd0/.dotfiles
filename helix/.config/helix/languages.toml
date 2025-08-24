@@ -33,6 +33,7 @@ language-servers = [ "ruff", "pylsp", "scls" ]
 [[language]]
 name = "c"
 language-servers = [ "clangd" ]
+formatter = {command = "clang-format"}
 
 # etc..
 

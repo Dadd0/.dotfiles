@@ -23,8 +23,8 @@ keybind = ctrl+space>-=new_split:down
 keybind = ctrl+space>e=equalize_splits
 
 # TRANSPARENCY
-background-opacity = 0.8
-background-blur-radius = 20
+background-opacity = 0.7
+background-blur-radius = 10
 
 # CURSOR
 cursor-style = block

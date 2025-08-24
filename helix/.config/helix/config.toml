@@ -1,8 +1,11 @@
-theme = "onedarker"
+theme = "gruvbox_transparent"
 
 [editor]
 line-number = "relative"
 bufferline = "multiple"
+
+[editor.lsp]
+auto-signature-help = false
 
 [keys.normal]
 esc = ["collapse_selection", "keep_primary_selection"]
