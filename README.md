@@ -1,31 +1,28 @@
-# Personal Dotfiles Using `stow` 
+# Personal Dotfiles
 
-GNU Stow is a symlink farm manager that creates symbolic links from a source directory to a target directory.
+Simple tree structure with a folder per tool:
 
-# Stow Required Filestructure 
 ```
 .dotfiles/
 ├── ghostty/
-│   └── .config/
-│       └── ghostty/
-│           └── config
+│   └── config
 ├── helix/
-│   └── .config/
-│       └── helix/
-│           ├── config.toml
-│           └── languages.toml
-└── starship/
-    └── .config/
-        └── starship.toml
+│   ├── config.toml
+│   └── languages.toml
+├── starship/
+│   └── starship.toml
+└── wofi/
+    ├── config
+    ├── mocha.css
+    ├── README.md
+    └── start_wofi.sh
 ```
 
-## Creating Symlinks
-Run `stow ghostty helix starship <...>`
-
-## Removing Symlinks
-To uninstall the symlinks:
+## Installing (manual symlinks)
 
 ```bash
-cd ~/.dotfiles
-stow -D ghostty helix starship
+ln -s ~/.dotfiles/ghostty ~/.config/ghostty
+ln -s ~/.dotfiles/helix ~/.config/helix
+ln -s ~/.dotfiles/wofi ~/.config/wofi
+ln -s ~/.dotfiles/starship/starship.toml ~/.config/starship.toml
 ```
