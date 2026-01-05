@@ -29,20 +29,19 @@ language-servers = [ "scls" ]
 [[language]]
 name = "python"
 language-servers = [ "ruff", "pylsp", "scls" ]
+auto-format = true
 
 [[language]]
 name = "c"
 language-servers = [ "clangd" ]
 formatter = {command = "clang-format"}
 
-# etc..
+[language-server.ruby-lsp]
+command = "ruby-lsp"
+config = { diagnostics = true, formatting = true }
 
-# introduce a new language to enable completion on any doc by forcing set language with :set-language stub
 [[language]]
-name = "stub"
-scope = "text.stub"
-file-types = []
-shebangs = []
-roots = []
-auto-format = false
-language-servers = [ "scls" ]
+name = "ruby"
+language-servers = ["ruby-lsp"]
+auto-format = true
+
