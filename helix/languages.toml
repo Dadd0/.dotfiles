@@ -1,6 +1,10 @@
 [language-server.scls]
 command = "simple-completion-language-server"
 
+[language-server.ty]
+command = "ty"
+args = ["server"]
+
 [language-server.scls.config]
 max_completion_items = 100           # set max completion results len for each group: words, snippets, unicode-input
 feature_words = false                # enable completion by word
@@ -28,7 +32,7 @@ language-servers = [ "scls" ]
 
 [[language]]
 name = "python"
-language-servers = [ "ruff", "pylsp", "scls" ]
+language-servers = [ "ruff", "ty", "scls" ]
 auto-format = true
 
 [[language]]

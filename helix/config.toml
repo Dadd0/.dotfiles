@@ -3,7 +3,10 @@ theme = "gruvbox_transparent"
 [editor]
 line-number = "relative"
 bufferline = "multiple"
-completion-timeout = 5
+completion-timeout = 100
+
+[editor.file-picker]
+hidden = false
 
 [editor.lsp]
 auto-signature-help = false

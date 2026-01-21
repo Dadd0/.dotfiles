@@ -7,7 +7,7 @@ mouse-scroll-multiplier = 2
 window-colorspace = "display-p3"
 background = #000000
 
-font-family = "FiraCode"
+font-family = "FiraCode Nerd Font"
 
 # TABS
 keybind = ctrl+space>c=new_tab
