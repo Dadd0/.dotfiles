@@ -1,0 +1,3 @@
+[submodule "zed/blurred_theme"]
+	path = zed/blurred_theme
+	url = git@github.com:jenslys/zed-catppuccin-blur.git
