@@ -1,0 +1,21 @@
+#!/bin/sh
+
+file="$1"
+
+case "$file" in
+  *.typ) ;;
+  *)
+    echo "Not a Typst file"
+    exit 0
+    ;;
+esac
+
+pdf="${file%%.typ}.pdf"
+
+if ! pgrep -f "typst watch $file" >/dev/null; then
+  typst watch "$file" "$pdf" >/tmp/typst-watch.log 2>&1 &
+fi
+
+zathura "$pdf" >/dev/null 2>&1 &
+
+echo "Typst preview: $pdf"

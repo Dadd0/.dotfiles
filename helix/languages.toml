@@ -32,7 +32,7 @@ language-servers = [ "scls" ]
 
 [[language]]
 name = "python"
-language-servers = [ "ruff", "ty", "scls" ]
+language-servers = [ "ruff", "ty", "scls", "lsp-ai" ]
 auto-format = true
 
 [[language]]
@@ -40,12 +40,20 @@ name = "c"
 language-servers = [ "clangd" ]
 formatter = {command = "clang-format"}
 
-[language-server.ruby-lsp]
-command = "ruby-lsp"
-config = { diagnostics = true, formatting = true }
-
 [[language]]
 name = "ruby"
-language-servers = ["ruby-lsp"]
+formatter = { command = "rubocop", args = ["--stdin", "foo.rb", "-a", "--stderr", "--fail-level", "fatal"] }
 auto-format = true
+language-servers=[{name="solargraph"}]
+
+[language-server.solargraph]
+config.diagnostics=true
+config.formatting=false
+
+[language-server.tinymist]
+command = "tinymist"
+
+[[language]]
+name = "typst"
+language-servers = ["tinymist"]
 
