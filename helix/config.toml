@@ -37,4 +37,5 @@ space.x = ":buffer-close"
 space.v = ":vsplit"
 a = ["append_mode", "collapse_selection"]
 C-p = ':echo %sh{~/.config/helix/scripts/typst-preview "%{buffer_name}"}'
+A-w = ":toggle soft-wrap.enable"
 
