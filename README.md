@@ -1,36 +1,32 @@
-# Personal Dotfiles
+# Dotfiles
 
-My configuration files and settings for various tools. 
+My configuration files for various tools, organized with one folder per tool. Each directory maps to `~/.config/<tool>`.
 
-This repository is organized with a simple structure: **one folder per tool**. Each directory contains the configuration files intended for `~/.config/<tool>`.
+## Contents
 
-## Installation
+| Tool | Description |
+|------|-------------|
+| [helix](helix/) | Editor config |
+| [ghostty](ghostty/) | Terminal |
+| [tmux](tmux/) | Multiplexer |
+| [starship](starship/) | Shell prompt |
+| [zed](zed/) | Editor config with Catppuccin Blur theme (git submodule) |
+| [wofi](wofi/) | App launcher |
 
-These configurations can be installed by symlinking the directories to the `~/.config` folder.
+## Install
 
-### Automated Symlinking (
-
-Run this loop in your terminal from inside the `.dotfiles` directory to automatically symlink all tool folders into `~/.config`:
+Symlink all tool folders into `~/.config` from the repo root:
 
 ```bash
-cd ~/.dotfiles
-
-# Loop through all directories and create symlinks in ~/.config
-for dir in */ ; do
-    tool=$(basename "$dir")
-    
-    # Skip any non-tool directories if needed (e.g., scripts)
-    # if [ "$tool" = "scripts" ]; then continue; fi
-    
-    ln -sfn "$PWD/$tool" ~/.config/"$tool"
-    echo "Symlinked $tool -> ~/.config/$tool"
+for dir in */; do
+    ln -sfn "$PWD/$dir" ~/.config/"$(basename "$dir")"
 done
 ```
 
-### Manual Symlinks
-
-For a specific tool:
+Or for a single tool:
 
 ```bash
-ln -s ~/.dotfiles/<tool> ~/.config/<tool>
+ln -sfn ~/dev/dotfiles/<tool> ~/.config/<tool>
 ```
+
+After cloning, run `git submodule update --init` to fetch the Zed theme.
