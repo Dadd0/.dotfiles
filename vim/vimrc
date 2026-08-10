@@ -1,0 +1,29 @@
+filetype plugin on
+syntax on
+
+set termguicolors
+set guicursor=
+set relativenumber 
+set number
+set scrolloff=8
+set tabstop=4
+set softtabstop=4
+set shiftwidth=4
+set smartindent
+
+call plug#begin()
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+Plug 'junegunn/fzf.vim'
+Plug 'ayu-theme/ayu-vim'
+call plug#end()
+
+let mapleader = " "
+
+colorscheme ayu
+
+nnoremap <leader>f :Files<CR>
+nnoremap <leader>v :vsplit<CR>
+nnoremap <leader>- :split<CR>
+nnoremap <C-p> :GFiles<CR>
+nnoremap <C-k> :cnext<CR>
+nnoremap <C-j> :cprev<CR>

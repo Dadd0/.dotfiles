@@ -1,0 +1,12 @@
+let g:netrw_dirhistmax  =10
+let g:netrw_dirhistcnt =3
+let g:netrw_dirhist_3='/home/daddo/dev/C'
+let g:netrw_dirhist_2='/home/daddo'
+let g:netrw_dirhist_1='/home/daddo/.agents'
+let g:netrw_dirhist_0='/home/daddo'
+let g:netrw_dirhist_9='/home'
+let g:netrw_dirhist_8='/home/daddo/dev'
+let g:netrw_dirhist_7='/home/daddo/dev/C'
+let g:netrw_dirhist_6='/home/daddo'
+let g:netrw_dirhist_5='/home/daddo/.config/vim'
+let g:netrw_dirhist_4='/home/daddo/dev/dazn-cdn'
