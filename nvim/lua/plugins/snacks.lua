@@ -10,7 +10,7 @@ Snacks.setup({
 	bigfile = { enabled = true },
 	dashboard = { enabled = false },
 	dim = { enabled = true },
-	explorer = { enabled = true, replace_netrw = true },
+	explorer = { enabled = false },
 	image = { enabled = true },
 	indent = { enabled = true },
 	input = { enabled = true },
@@ -27,96 +27,12 @@ Snacks.setup({
 	zen = { enabled = true },
 
 	picker = {
+		hidden = true,
+		ignored = true,
 		sources = {
 			files = {
 				hidden = true,
 				ignored = true,
-				win = {
-					input = {
-						keys = {
-							["<S-h>"] = "toggle_hidden",
-							["<S-i>"] = "toggle_ignored",
-							["<S-f>"] = "toggle_follow",
-							["<C-y>"] = { "yazi_copy_relative_path", mode = { "n", "i" } },
-						},
-					},
-				},
-				exclude = {
-					"**/.git/*",
-					"**/node_modules/*",
-					"**/.yarn/cache/*",
-					"**/.yarn/install*",
-					"**/.yarn/releases/*",
-					"**/.pnpm-store/*",
-					"**/.idea/*",
-					"**/.DS_Store",
-					"build/*",
-					"coverage/*",
-					"dist/*",
-					"hodor-types/*",
-					"**/target/*",
-					"**/public/*",
-					"**/digest*.txt",
-					"**/.node-gyp/**",
-				},
-			},
-			grep = {
-				hidden = true,
-				ignored = true,
-				win = {
-					input = {
-						keys = {
-							["<S-h>"] = "toggle_hidden",
-							["<S-i>"] = "toggle_ignored",
-							["<S-f>"] = "toggle_follow",
-						},
-					},
-				},
-				exclude = {
-					"**/.git/*",
-					"**/node_modules/*",
-					"**/.yarn/cache/*",
-					"**/.yarn/install*",
-					"**/.yarn/releases/*",
-					"**/.pnpm-store/*",
-					"**/.venv/*",
-					"**/.idea/*",
-					"**/.DS_Store",
-					"**/yarn.lock",
-					"build*/*",
-					"coverage/*",
-					"dist/*",
-					"certificates/*",
-					"hodor-types/*",
-					"**/target/*",
-					"**/public/*",
-					"**/digest*.txt",
-					"**/.node-gyp/**",
-				},
-			},
-			grep_buffers = {},
-			explorer = {
-				hidden = true,
-				ignored = true,
-				supports_live = true,
-				auto_close = true,
-				diagnostics = true,
-				diagnostics_open = false,
-				focus = "list",
-				follow_file = true,
-				git_status = true,
-				git_status_open = false,
-				git_untracked = true,
-				jump = { close = true },
-				tree = true,
-				watch = true,
-				exclude = {
-					".git",
-					".pnpm-store",
-					".venv",
-					".DS_Store",
-					"**/.node-gyp/**",
-				},
 			},
 		},
 	},
@@ -152,12 +68,11 @@ vim.api.nvim_create_autocmd("User", {
 -- stylua: ignore start
 local   keymaps = {
     { "<leader>l", function() vim.cmd("Lazy") end, desc = "Open Lazy tab", },
-    -- Top Pickers & Explorer
+    -- Top Pickers
     { "<leader><space>", function() Snacks.picker.smart() end, desc = "Smart Find Files" },
     { "<leader>/", function() Snacks.picker.grep() end, desc = "Grep" },
     { "<leader>:", function() Snacks.picker.command_history() end, desc = "Command History" },
     { "<leader>n", function() Snacks.picker.notifications() end, desc = "Notification History" },
-    { "<leader>e", function() Snacks.explorer() end, desc = "File Explorer" },
     {
       "<leader>,", function()
         Snacks.picker.buffers({
@@ -198,7 +113,6 @@ local   keymaps = {
     { '<leader>s"', function() Snacks.picker.registers() end, desc = "Registers" },
     { '<leader>s/', function() Snacks.picker.search_history() end, desc = "Search History" },
     { "<leader>sa", function() Snacks.picker.autocmds() end, desc = "Autocmds" },
-    { "<leader>sb", function() Snacks.picker.lines() end, desc = "Buffer Lines" },
     { "<leader>sc", function() Snacks.picker.command_history() end, desc = "Command History" },
     { "<leader>sC", function() Snacks.picker.commands() end, desc = "Commands" },
     { "<leader>sd", function() Snacks.picker.diagnostics() end, desc = "Diagnostics" },

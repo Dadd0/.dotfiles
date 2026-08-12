@@ -1,4 +1,5 @@
 require("plugins.snacks")
+require("plugins.yazi")
 require("plugins.whichkey")
 require("plugins.theme")
 require("plugins.treesitter")
