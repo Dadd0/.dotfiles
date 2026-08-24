@@ -1,52 +1,140 @@
-return { -- Highlight, edit, and navigate code 
-  'nvim-treesitter/nvim-treesitter',
-  build = ':TSUpdate',
-  main = 'nvim-treesitter.configs', -- Sets main module to use for opts
-  -- [[ Configure Treesitter ]] See `:help nvim-treesitter`
-  opts = {
-    ensure_installed = {
-      'lua',
-      'python',
-      'javascript',
-      'typescript',
-      'vimdoc',
-      'vim',
-      'regex',
-      'terraform',
-      'sql',
-      'dockerfile',
-      'toml',
-      'json',
-      'java',
-      'groovy',
-      'go',
-      'gitignore',
-      'graphql',
-      'yaml',
-      'make',
-      'cmake',
-      'markdown',
-      'markdown_inline',
-      'bash',
-      'tsx',
-      'css',
-      'html',
-    },
-    -- Autoinstall languages that are not installed
-    auto_install = true,
-    highlight = {
-      enable = true,
-      -- Some languages depend on vim's regex highlighting system (such as Ruby) for indent rules.
-      --  If you are experiencing weird indenting issues, add the language to
-      --  the list of additional_vim_regex_highlighting and disabled languages for indent.
-      additional_vim_regex_highlighting = { 'ruby' },
-    },
-    indent = { enable = true, disable = { 'ruby' } },
-  },
-  -- There are additional nvim-treesitter modules that you can use to interact
-  -- with nvim-treesitter. You should go explore a few and see what interests you:
-  --
-  --    - Incremental selection: Included, see `:help nvim-treesitter-incremental-selection-mod`
-  --    - Show your current context: https://github.com/nvim-treesitter/nvim-treesitter-context
-  --    - Treesitter + textobjects: https://github.com/nvim-treesitter/nvim-treesitter-textobjects
-}
+vim.pack.add({
+	{
+		src = "https://github.com/nvim-treesitter/nvim-treesitter",
+		version = "main",
+	},
+	{
+		src = "https://github.com/nvim-treesitter/nvim-treesitter-textobjects",
+		version = "main",
+	},
+})
+
+require("nvim-treesitter").setup({})
+require("nvim-treesitter").install({
+	"bash",
+	"c",
+	"css",
+	"diff",
+	"dockerfile",
+	"gitcommit",
+	"gitignore",
+	"go",
+	"html",
+	"ini",
+	"javascript",
+	"jsdoc",
+	"json",
+	"lua",
+	"luadoc",
+	"luap",
+	"make",
+	"markdown",
+	"markdown_inline",
+	"nginx",
+	"proto",
+	"python",
+	"query",
+	"regex",
+	"rust",
+	"scss",
+	"sql",
+	"terraform",
+	"toml",
+	"tsx",
+	"typescript",
+	"vim",
+	"vimdoc",
+	"xml",
+	"yaml",
+	"zig",
+})
+
+require("nvim-treesitter-textobjects").setup({
+	select = {
+		enable = true,
+		lookahead = true,
+		selection_modes = {
+			["@parameter.outer"] = "v", -- charwise
+			["@function.outer"] = "V", -- linewise
+			["@class.outer"] = "<c-v>", -- blockwise
+		},
+		include_surrounding_whitespace = false,
+	},
+	move = {
+		enable = true,
+		set_jumps = true,
+	},
+})
+
+-- SELECT keymaps
+local sel = require("nvim-treesitter-textobjects.select")
+for _, map in ipairs({
+	{ { "x", "o" }, "af", "@function.outer" },
+	{ { "x", "o" }, "if", "@function.inner" },
+	{ { "x", "o" }, "ac", "@class.outer" },
+	{ { "x", "o" }, "ic", "@class.inner" },
+	{ { "x", "o" }, "aa", "@parameter.outer" },
+	{ { "x", "o" }, "ia", "@parameter.inner" },
+	{ { "x", "o" }, "ad", "@comment.outer" },
+	{ { "x", "o" }, "as", "@statement.outer" },
+}) do
+	vim.keymap.set(map[1], map[2], function()
+		sel.select_textobject(map[3], "textobjects")
+	end, { desc = "Select " .. map[3] })
+end
+
+-- MOVE keymaps
+local mv = require("nvim-treesitter-textobjects.move")
+for _, map in ipairs({
+	{ { "n", "x", "o" }, "]m", mv.goto_next_start, "@function.outer" },
+	{ { "n", "x", "o" }, "[m", mv.goto_previous_start, "@function.outer" },
+	{ { "n", "x", "o" }, "]]", mv.goto_next_start, "@class.outer" },
+	{ { "n", "x", "o" }, "[[", mv.goto_previous_start, "@class.outer" },
+	{ { "n", "x", "o" }, "]M", mv.goto_next_end, "@function.outer" },
+	{ { "n", "x", "o" }, "[M", mv.goto_previous_end, "@function.outer" },
+	{ { "n", "x", "o" }, "]o", mv.goto_next_start, { "@loop.inner", "@loop.outer" } },
+	{ { "n", "x", "o" }, "[o", mv.goto_previous_start, { "@loop.inner", "@loop.outer" } },
+}) do
+	local modes, lhs, fn, query = map[1], map[2], map[3], map[4]
+	-- build a human-readable desc
+	local qstr = (type(query) == "table") and table.concat(query, ",") or query
+	vim.keymap.set(modes, lhs, function()
+		fn(query, "textobjects")
+	end, { desc = "Move to " .. qstr })
+end
+
+vim.api.nvim_create_autocmd("PackChanged", {
+	desc = "Handle nvim-treesitter updates",
+	group = vim.api.nvim_create_augroup("nvim-treesitter-pack-changed-update-handler", { clear = true }),
+	callback = function(event)
+		if event.data.kind == "update" then
+			local ok = pcall(vim.cmd, "TSUpdate")
+			if ok then
+				vim.notify("TSUpdate completed successfully!", vim.log.levels.INFO)
+			else
+				vim.notify("TSUpdate command not available yet, skipping", vim.log.levels.WARN)
+			end
+		end
+	end,
+})
+
+vim.wo.foldexpr = "v:lua.vim.treesitter.foldexpr()"
+vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
+
+vim.api.nvim_create_autocmd("FileType", {
+	pattern = { "*" },
+	callback = function()
+		local filetype = vim.bo.filetype
+		if filetype and filetype ~= "" then
+			local success = pcall(function()
+				vim.treesitter.start()
+			end)
+			if not success then
+				return
+			end
+		end
+	end,
+})
+
+
+
