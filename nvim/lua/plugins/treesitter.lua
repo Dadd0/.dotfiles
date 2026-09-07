@@ -10,44 +10,17 @@ vim.pack.add({
 })
 
 require("nvim-treesitter").setup({})
-require("nvim-treesitter").install({
-	"bash",
-	"c",
-	"css",
-	"diff",
-	"dockerfile",
-	"gitcommit",
-	"gitignore",
-	"go",
-	"html",
-	"ini",
-	"javascript",
-	"jsdoc",
-	"json",
-	"lua",
-	"luadoc",
-	"luap",
-	"make",
-	"markdown",
-	"markdown_inline",
-	"nginx",
-	"proto",
-	"python",
-	"query",
-	"regex",
-	"rust",
-	"scss",
-	"sql",
-	"terraform",
-	"toml",
-	"tsx",
-	"typescript",
-	"vim",
-	"vimdoc",
-	"xml",
-	"yaml",
-	"zig",
-})
+
+-- Command to install all preferred grammars on-demand (:TSInstallAll)
+vim.api.nvim_create_user_command("TSInstallAll", function()
+	require("nvim-treesitter").install({
+		"bash", "c", "css", "diff", "dockerfile", "gitcommit", "gitignore", "go",
+		"html", "ini", "javascript", "jsdoc", "json", "lua", "luadoc", "luap",
+		"make", "markdown", "markdown_inline", "nginx", "proto", "python", "query",
+		"regex", "rust", "scss", "sql", "terraform", "toml", "tsx", "typescript",
+		"vim", "vimdoc", "xml", "yaml", "zig",
+	})
+end, { desc = "Install all configured treesitter parsers" })
 
 require("nvim-treesitter-textobjects").setup({
 	select = {
@@ -66,8 +39,7 @@ require("nvim-treesitter-textobjects").setup({
 	},
 })
 
--- SELECT keymaps
-local sel = require("nvim-treesitter-textobjects.select")
+-- SELECT keymaps (lazy loaded on first keypress)
 for _, map in ipairs({
 	{ { "x", "o" }, "af", "@function.outer" },
 	{ { "x", "o" }, "if", "@function.inner" },
@@ -79,27 +51,26 @@ for _, map in ipairs({
 	{ { "x", "o" }, "as", "@statement.outer" },
 }) do
 	vim.keymap.set(map[1], map[2], function()
-		sel.select_textobject(map[3], "textobjects")
+		require("nvim-treesitter-textobjects.select").select_textobject(map[3], "textobjects")
 	end, { desc = "Select " .. map[3] })
 end
 
--- MOVE keymaps
-local mv = require("nvim-treesitter-textobjects.move")
+-- MOVE keymaps (lazy loaded on first keypress)
 for _, map in ipairs({
-	{ { "n", "x", "o" }, "]m", mv.goto_next_start, "@function.outer" },
-	{ { "n", "x", "o" }, "[m", mv.goto_previous_start, "@function.outer" },
-	{ { "n", "x", "o" }, "]]", mv.goto_next_start, "@class.outer" },
-	{ { "n", "x", "o" }, "[[", mv.goto_previous_start, "@class.outer" },
-	{ { "n", "x", "o" }, "]M", mv.goto_next_end, "@function.outer" },
-	{ { "n", "x", "o" }, "[M", mv.goto_previous_end, "@function.outer" },
-	{ { "n", "x", "o" }, "]o", mv.goto_next_start, { "@loop.inner", "@loop.outer" } },
-	{ { "n", "x", "o" }, "[o", mv.goto_previous_start, { "@loop.inner", "@loop.outer" } },
+	{ { "n", "x", "o" }, "]m", "goto_next_start", "@function.outer" },
+	{ { "n", "x", "o" }, "[m", "goto_previous_start", "@function.outer" },
+	{ { "n", "x", "o" }, "]]", "goto_next_start", "@class.outer" },
+	{ { "n", "x", "o" }, "[[", "goto_previous_start", "@class.outer" },
+	{ { "n", "x", "o" }, "]M", "goto_next_end", "@function.outer" },
+	{ { "n", "x", "o" }, "[M", "goto_previous_end", "@function.outer" },
+	{ { "n", "x", "o" }, "]o", "goto_next_start", { "@loop.inner", "@loop.outer" } },
+	{ { "n", "x", "o" }, "[o", "goto_previous_start", { "@loop.inner", "@loop.outer" } },
 }) do
-	local modes, lhs, fn, query = map[1], map[2], map[3], map[4]
+	local modes, lhs, method_name, query = map[1], map[2], map[3], map[4]
 	-- build a human-readable desc
 	local qstr = (type(query) == "table") and table.concat(query, ",") or query
 	vim.keymap.set(modes, lhs, function()
-		fn(query, "textobjects")
+		require("nvim-treesitter-textobjects.move")[method_name](query, "textobjects")
 	end, { desc = "Move to " .. qstr })
 end
 
